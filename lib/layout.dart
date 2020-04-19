@@ -59,7 +59,7 @@ class _LayoutPageState extends State<LayoutPage> {
   Widget build(BuildContext context) {
     var currentTab = _tabs[current];
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Color(0xFFEDEDED),
       appBar: currentTab["titleShow"]
           ? AppBar(
               title: Text(currentTab["title"]),
