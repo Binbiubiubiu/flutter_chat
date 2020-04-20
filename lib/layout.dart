@@ -23,8 +23,8 @@ List<Map<String, dynamic>> _tabs = [
   },
   {
     "title": "发现",
-    "icon": Icons.pie_chart_outlined,
-    "activeIcon": Icons.pie_chart,
+    "icon": Icons.explore,
+    "activeIcon": Icons.explore,
     "widget": FindPage(),
     "titleShow": true,
   },
@@ -103,7 +103,7 @@ class _LayoutPageState extends State<LayoutPage> {
         onPressed: () {},
       ),
       PopupMenuButton(
-        icon: Icon(Icons.more_vert),
+        icon: Icon(Icons.add_circle_outline),
         color: Color.fromRGBO(0, 0, 0, .8),
         itemBuilder: (BuildContext context) {
           return <PopupMenuEntry<dynamic>>[

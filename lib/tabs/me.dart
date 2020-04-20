@@ -59,7 +59,7 @@ class _MePageState extends State<MePage> {
                     decoration: BoxDecoration(color: Colors.white),
                     child: ListTile(
                       onTap: () {},
-                      leading: Icon(Icons.face),
+                      leading: Icon(Icons.sentiment_satisfied),
                       title: Text("表情"),
                       trailing: Icon(Icons.arrow_forward_ios),
                     ),
@@ -95,7 +95,7 @@ class _MePageState extends State<MePage> {
   }
 
   buildUserHeader(double kStatusBarHeight) {
-    final avator =
+    final avatar =
         "https://i2.hdslb.com/bfs/face/d19a34d4f2081baed11d575a516487763605b374.jpg@150w_150h.jpg";
 
     return Container(
@@ -117,7 +117,7 @@ class _MePageState extends State<MePage> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: NetworkImage(avator),
+                  image: NetworkImage(avatar),
                   fit: BoxFit.contain,
                 ),
               ),
