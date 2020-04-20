@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simonchat/mock/people.dart';
 
@@ -38,6 +39,7 @@ class _PeoplePageState extends State<PeoplePage> {
                       title: Text("新朋友"),
                     ),
                   ),
+                  Divider(height: 0.0),
                   DecoratedBox(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -60,6 +62,7 @@ class _PeoplePageState extends State<PeoplePage> {
                       title: Text("群聊"),
                     ),
                   ),
+                  Divider(height: 0.0),
                   DecoratedBox(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -82,6 +85,7 @@ class _PeoplePageState extends State<PeoplePage> {
                       title: Text("标签"),
                     ),
                   ),
+                  Divider(height: 0.0),
                   DecoratedBox(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -104,6 +108,7 @@ class _PeoplePageState extends State<PeoplePage> {
                       title: Text("公众号"),
                     ),
                   ),
+                  Divider(height: 0.0),
                 ],
               ),
             ),
@@ -177,16 +182,14 @@ class _PeoplePageState extends State<PeoplePage> {
       "#",
     ];
     return Positioned(
+      top: 0,
       right: 0,
+      bottom: 0,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 50.0),
+        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 30.0),
         child: Column(
-          children: words
-              .map((word) => Text(
-                    word,
-                    style: TextStyle(height: 1.4),
-                  ))
-              .toList(),
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: words.map((word) => Text(word)).toList(),
         ),
       ),
     );
