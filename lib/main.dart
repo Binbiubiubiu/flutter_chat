@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:simonchat/router.dart';
 import 'package:simonchat/style.dart' show appTheme;
-import 'package:simonchat/tabs/chat.dart';
 
-import 'layout.dart';
-
-void main() {
+Future<void> main() async {
   runApp(MyApp());
 }
 
@@ -15,11 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Simon Chat',
       theme: appTheme,
-      home: LayoutPage(),
-      initialRoute: "/",
-      routes: {
-        "/login": (ctx) => ChatPage(),
-      },
+//      home: LayoutPage(),
+      initialRoute: SimonRouter.initialRoute,
+      routes: SimonRouter.routes,
     );
   }
 }

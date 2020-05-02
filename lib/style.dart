@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
+const primary = Color(0xFF57BE6A);
+const secondary = Color(0xFFA9EA7C);
+
+const background = Color(0xFFEDEDED);
+
 var appTheme = ThemeData(
-  primaryColor: Color(0xFF57BE6A),
-  scaffoldBackgroundColor: Color(0xFFEDEDED),
+  primaryColor: primary,
+  scaffoldBackgroundColor: background,
   appBarTheme: AppBarTheme(
-    color: Color(0xFFEDEDED),
+    color: background,
     elevation: 1.0,
   ),
   visualDensity: VisualDensity.adaptivePlatformDensity,
