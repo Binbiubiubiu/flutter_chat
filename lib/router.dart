@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:simonchat/pages/message.dart';
 import 'package:simonchat/tabs/chat.dart';
+
+import 'message/message_page.dart';
 
 class SimonRouter {
   static String initialRoute = "/";

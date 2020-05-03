@@ -12,5 +12,4 @@ var appTheme = ThemeData(
     color: background,
     elevation: 1.0,
   ),
-  visualDensity: VisualDensity.adaptivePlatformDensity,
 );

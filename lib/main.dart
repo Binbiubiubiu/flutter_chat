@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:simonchat/router.dart';
 import 'package:simonchat/style.dart' show appTheme;
 
@@ -13,6 +14,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Simon Chat',
       theme: appTheme,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('zh', 'CN'),
+        const Locale('en', 'US'),
+      ],
 //      home: LayoutPage(),
       initialRoute: SimonRouter.initialRoute,
       routes: SimonRouter.routes,

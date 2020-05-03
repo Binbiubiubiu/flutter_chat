@@ -155,8 +155,8 @@ class _MessageBorder extends ShapeBorder {
   void drawArrow(Canvas canvas, Rect rect) {
     final Paint paint = Paint()..color = color;
     Path path = Path();
-    double mid = rect.height / 2;
-    double s = rect.height / 6;
+    double mid = 24;
+    double s = 8;
 
     switch (arrow) {
       case MessageArrowDirect.left:
@@ -190,6 +190,6 @@ class _MessageBorder extends ShapeBorder {
 
   @override
   String toString() {
-    return '${objectRuntimeType(this, '_MessageBorder')}($side, $borderRadius)';
+    return '_MessageBorder($side, $borderRadius)';
   }
 }

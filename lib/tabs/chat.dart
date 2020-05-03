@@ -28,59 +28,60 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-        itemBuilder: (BuildContext context, int i) {
-          return GestureDetector(
-            onLongPressStart: (LongPressStartDetails details) {
-              _showMenu(details, i);
-            },
-            child: DecoratedBox(
-              decoration: BoxDecoration(color: Colors.white),
-              child: ListTile(
-                onTap: () {},
-                leading: Stack(
-                  children: <Widget>[
-                    FlutterLogo(
-                      size: 40,
-                    ),
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      child: Transform.translate(
-                        offset: Offset(5.0, -2.0),
-                        child: Container(
-                          width: 10.0,
-                          height: 10.0,
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
+      itemBuilder: (BuildContext context, int i) {
+        return GestureDetector(
+          onLongPressStart: (LongPressStartDetails details) {
+            _showMenu(details, i);
+          },
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: Colors.white),
+            child: ListTile(
+              onTap: () {},
+              leading: Stack(
+                children: <Widget>[
+                  FlutterLogo(
+                    size: 40,
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Transform.translate(
+                      offset: Offset(5.0, -2.0),
+                      child: Container(
+                        width: 10.0,
+                        height: 10.0,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
-                    )
-                  ],
-                ),
-                title: Text(
-                  _list[i]["title"],
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                subtitle: Text(_list[i]["subTitle"]),
-                trailing: Column(
-                  children: <Widget>[
-                    Text("昨天", style: TextStyle(fontSize: 12.0)),
-                    SizedBox(height: 10.0),
-                    Visibility(
-                      visible: _list[i]["isReaded"],
-                      child: Icon(Icons.notifications_off, size: 16.0),
-                    )
-                  ],
-                ),
-                dense: true,
+                    ),
+                  )
+                ],
               ),
+              title: Text(
+                _list[i]["title"],
+                style: TextStyle(fontSize: 16.0),
+              ),
+              subtitle: Text(_list[i]["subTitle"]),
+              trailing: Column(
+                children: <Widget>[
+                  Text("昨天", style: TextStyle(fontSize: 12.0)),
+                  SizedBox(height: 10.0),
+                  Visibility(
+                    visible: _list[i]["isReaded"],
+                    child: Icon(Icons.notifications_off, size: 16.0),
+                  )
+                ],
+              ),
+              dense: true,
             ),
-          );
-        },
-        separatorBuilder: (BuildContext context, int i) => Divider(height: 0),
-        itemCount: _list.length);
+          ),
+        );
+      },
+      separatorBuilder: (BuildContext context, int i) => Divider(height: 0),
+      itemCount: _list.length,
+    );
   }
 
   _showMenu(LongPressStartDetails details, int index) {
