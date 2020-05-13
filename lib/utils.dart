@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker_web/image_picker_web.dart';
+import 'package:package_info/package_info.dart';
 import 'package:uuid/uuid.dart';
+
+/// 判断环境
+final isProd = const bool.fromEnvironment('dart.vm.product');
+
+Future<PackageInfo> getPackageInfo() async {
+  PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+//  String appName = packageInfo.appName;
+//  String packageName = packageInfo.packageName;
+//  String version = packageInfo.version;
+//  String buildNumber = packageInfo.buildNumber;
+  return packageInfo;
+}
 
 ///  生成uuid
 Uuid uuid = Uuid();
@@ -17,6 +32,9 @@ class CameraUtil {
   }
 
   static Future<File> pickPhoto({maxWidth, maxHeight, quality}) {
+    if (Platform.isWindows) {
+//      return ImagePickerWeb.getImage(outputType: ImageType.file);
+    }
     return ImagePicker.pickImage(
         source: ImageSource.gallery,
         maxWidth: maxWidth,
@@ -32,6 +50,9 @@ class CameraUtil {
   }
 
   static Future<File> pickVideo({maxDuration}) {
+    if (Platform.isWindows) {
+//      return ImagePickerWeb.getVideo(outputType: VideoType.file);
+    }
     return ImagePicker.pickVideo(
       source: ImageSource.gallery,
       maxDuration: maxDuration,

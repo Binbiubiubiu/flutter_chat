@@ -59,8 +59,8 @@ class Message extends StatelessWidget {
 }
 
 class _Avator extends StatelessWidget {
-  String avator;
-  double size;
+  final String avator;
+  final double size;
 
   _Avator(
     this.avator, {

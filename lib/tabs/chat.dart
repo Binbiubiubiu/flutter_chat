@@ -16,11 +16,7 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     // TODO: implement initState
     _list = List.generate(30, (int index) {
-      return {
-        "title": "前端${index}",
-        "subTitle": "害怕${index}",
-        "isReaded": false
-      };
+      return {"title": "前端$index", "subTitle": "害怕$index", "isReaded": false};
     });
     super.initState();
   }

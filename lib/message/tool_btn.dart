@@ -3,7 +3,7 @@ import 'dart:io';
 
 import '../utils.dart';
 
-Widget galleryBtn(BuildContext context, {onOk: Function}) {
+Widget galleryBtn(BuildContext context, {Function onOk}) {
   return BottomChatBtn(
     icon: Icons.photo_library,
     title: "相册",
@@ -28,7 +28,7 @@ Widget galleryBtn(BuildContext context, {onOk: Function}) {
   );
 }
 
-Widget cameraBtn(BuildContext context, {onOk: Function}) {
+Widget cameraBtn(BuildContext context, {Function onOk}) {
   return BottomChatBtn(
     icon: Icons.camera_alt,
     title: "拍摄",
@@ -53,7 +53,7 @@ Widget cameraBtn(BuildContext context, {onOk: Function}) {
   );
 }
 
-Widget locationBtn(BuildContext context, {onOk: Function}) {
+Widget locationBtn(BuildContext context, {Function onOk}) {
   return BottomChatBtn(
     icon: Icons.location_on,
     title: "位置",
@@ -61,7 +61,7 @@ Widget locationBtn(BuildContext context, {onOk: Function}) {
   );
 }
 
-Widget meBtn(BuildContext context, {onOk: Function}) {
+Widget meBtn(BuildContext context, {onOk}) {
   return BottomChatBtn(
     icon: Icons.person,
     title: "个人名片",

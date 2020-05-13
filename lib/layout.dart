@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:simonchat/tabs/chat.dart';
 import 'package:simonchat/tabs/find.dart';

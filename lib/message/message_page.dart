@@ -9,6 +9,7 @@ import 'package:simonchat/mock/message.dart';
 import 'package:simonchat/models/message_entity.dart';
 import 'package:simonchat/utils.dart';
 import 'package:simonchat/widgets/emoji_picker.dart';
+import 'package:video_player/video_player.dart';
 
 import 'tool_btn.dart';
 import 'message.dart';
@@ -26,23 +27,32 @@ class MessagePage extends StatefulWidget {
 class _MessagePageState extends State<MessagePage> {
   List<MessageEntity> msgList;
   ScrollController _scrollController;
+  VideoPlayerController _controller;
 
   @override
   void initState() {
-    super.initState();
-
     _scrollController = ScrollController();
     msgList = messageMock.map((item) {
       return messageEntityFromJson(MessageEntity(), item);
     }).toList();
+
+    super.initState();
+  }
+
+  @override
+  void deactivate() {
+    if (_controller != null) {
+      _controller.setVolume(0.0);
+      _controller.pause();
+    }
+    super.deactivate();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-
+    _disposeVideoController();
     _scrollController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -95,6 +105,25 @@ class _MessagePageState extends State<MessagePage> {
     );
   }
 
+  Future<void> _disposeVideoController() async {
+    if (_controller != null) {
+      await _controller.dispose();
+      _controller = null;
+    }
+  }
+
+  Future<void> _playVideo(File file) async {
+    if (file != null && mounted) {
+      await _disposeVideoController();
+      _controller = VideoPlayerController.file(file);
+      await _controller.setVolume(1.0);
+      await _controller.initialize();
+      await _controller.setLooping(true);
+      await _controller.play();
+      setState(() {});
+    }
+  }
+
   _submit(content, {BuildContext context}) {
     if (content is String) {
       setState(() {
@@ -118,6 +147,7 @@ class _MessagePageState extends State<MessagePage> {
     }
 
     if (content is File) {
+      _playVideo(content);
       setState(() {
         MessageEntity msg = messageEntityFromJson(MessageEntity(), {
           "id": uuid.v1(),
@@ -133,10 +163,11 @@ class _MessagePageState extends State<MessagePage> {
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width * .6,
           ),
-          child: Image.file(
-            content,
-            fit: BoxFit.cover,
-          ),
+          child: AspectRatioVideo(_controller),
+//          child: Image.file(
+//            content,
+//            fit: BoxFit.cover,
+//          ),
         );
         msgList.insert(0, msg);
         _scrollController.animateTo(
@@ -168,7 +199,7 @@ class _MessageBottomBarState extends State<MessageBottomBar>
   TextEditingController _inputController;
   FocusNode _inputFocus;
 
-  double _keyboardHeight = 0;
+  double _keyboardHeight = 200.0;
   String menuType = "";
 
   String content = "";
@@ -246,9 +277,9 @@ class _MessageBottomBarState extends State<MessageBottomBar>
                   splashColor: Colors.transparent,
                   icon: Icon(Icons.tag_faces),
                   onPressed: () {
-                    _inputFocus.unfocus();
                     setState(() {
                       menuType = menuType == "emoji" ? "" : "emoji";
+                      _inputFocus.requestFocus();
                     });
                   },
                 ),
@@ -274,7 +305,8 @@ class _MessageBottomBarState extends State<MessageBottomBar>
                       child: MaterialButton(
                         onPressed: () {
                           widget.onSubmit(content);
-                          _inputFocus.unfocus();
+                          _inputController.clear();
+//                          _inputFocus.unfocus();
                         },
                         textColor: Colors.white,
                         color: Theme.of(context).primaryColor,
@@ -297,14 +329,6 @@ class _MessageBottomBarState extends State<MessageBottomBar>
                   cameraBtn(context, onOk: widget.onSubmit),
                   locationBtn(context, onOk: widget.onSubmit),
                   meBtn(context, onOk: widget.onSubmit),
-                  galleryBtn(context, onOk: widget.onSubmit),
-                  cameraBtn(context, onOk: widget.onSubmit),
-                  locationBtn(context, onOk: widget.onSubmit),
-                  meBtn(context, onOk: widget.onSubmit),
-                  galleryBtn(context, onOk: widget.onSubmit),
-                  cameraBtn(context, onOk: widget.onSubmit),
-                  locationBtn(context, onOk: widget.onSubmit),
-                  meBtn(context, onOk: widget.onSubmit),
                 ],
               ),
             ),
@@ -318,8 +342,13 @@ class _MessageBottomBarState extends State<MessageBottomBar>
                   _inputController.text += emoji;
                 },
                 onDelete: () {
+                  var sRunes = content.runes;
+                  print(sRunes.length);
+                  print(content.length);
                   _inputController.text =
-                      content.substring(0, content.length - 1);
+                      String.fromCharCodes(sRunes, 0, sRunes.length - 1);
+//                  _inputController.text =
+//                      content.substring(0, content.length - 1);
                 },
                 disabledDelete: content.length == 0,
               ),
@@ -461,5 +490,55 @@ class _SwingViewState extends State<SwingView> {
         children: spots,
       ),
     );
+  }
+}
+
+class AspectRatioVideo extends StatefulWidget {
+  AspectRatioVideo(this.controller);
+
+  final VideoPlayerController controller;
+
+  @override
+  AspectRatioVideoState createState() => AspectRatioVideoState();
+}
+
+class AspectRatioVideoState extends State<AspectRatioVideo> {
+  VideoPlayerController get controller => widget.controller;
+  bool initialized = false;
+
+  void _onVideoControllerUpdate() {
+    if (!mounted) {
+      return;
+    }
+    if (initialized != controller.value.initialized) {
+      initialized = controller.value.initialized;
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller.addListener(_onVideoControllerUpdate);
+  }
+
+  @override
+  void dispose() {
+    controller.removeListener(_onVideoControllerUpdate);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (initialized) {
+      return Center(
+        child: AspectRatio(
+          aspectRatio: controller.value?.aspectRatio,
+          child: VideoPlayer(controller),
+        ),
+      );
+    } else {
+      return Container();
+    }
   }
 }

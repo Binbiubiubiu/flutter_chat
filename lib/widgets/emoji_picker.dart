@@ -46,8 +46,9 @@ class _EmojiPickerState extends State<EmojiPicker> {
               mainAxisSpacing: 8,
             ),
             itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
+              return FlatButton(
+                padding: EdgeInsets.zero,
+                onPressed: () {
                   widget.onSelected(emojis[index]);
                 },
                 child: Center(

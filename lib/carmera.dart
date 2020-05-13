@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:emoji_picker/emoji_picker.dart';
 
 void main() => runApp(MainApp());
 
@@ -33,18 +32,6 @@ class MainPageState extends State<MainPage> {
       children: <Widget>[
         TextField(
           controller: _editingController,
-        ),
-        EmojiPicker(
-          rows: 3,
-          columns: 7,
-          buttonMode: ButtonMode.MATERIAL,
-          recommendKeywords: ["racing", "horse"],
-          numRecommended: 10,
-          onEmojiSelected: (emoji, category) {
-            print(emoji.emoji.length);
-//            _editingController.text = emoji;
-            print(emoji);
-          },
         ),
       ],
     );
